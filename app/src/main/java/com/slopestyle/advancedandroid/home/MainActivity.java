@@ -1,7 +1,9 @@
-package com.slopestyle.advancedandroid;
+package com.slopestyle.advancedandroid.home;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.slopestyle.advancedandroid.R;
 
 public class MainActivity extends AppCompatActivity {
 
