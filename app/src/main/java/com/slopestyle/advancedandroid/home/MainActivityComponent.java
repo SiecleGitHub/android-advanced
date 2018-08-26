@@ -5,7 +5,10 @@ import com.slopestyle.advancedandroid.di.ActivityScope;
 import dagger.Subcomponent;
 import dagger.android.AndroidInjector;
 
-@Subcomponent
+@ActivityScope
+@Subcomponent(modules = {
+        MainScreenBindingModule.class
+})
 public interface MainActivityComponent extends AndroidInjector<MainActivity> {
 
     @Subcomponent.Builder
