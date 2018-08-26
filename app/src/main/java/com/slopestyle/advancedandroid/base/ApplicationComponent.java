@@ -1,7 +1,5 @@
 package com.slopestyle.advancedandroid.base;
 
-import com.slopestyle.advancedandroid.di.ActivityScope;
-
 import javax.inject.Singleton;
 
 import dagger.Component;
