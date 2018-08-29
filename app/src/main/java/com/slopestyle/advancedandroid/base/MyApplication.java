@@ -2,9 +2,12 @@ package com.slopestyle.advancedandroid.base;
 
 import android.app.Application;
 
+import com.slopestyle.advancedandroid.BuildConfig;
 import com.slopestyle.advancedandroid.di.ActivityInjector;
 
 import javax.inject.Inject;
+
+import timber.log.Timber;
 
 public class MyApplication extends Application {
 
@@ -21,6 +24,10 @@ public class MyApplication extends Application {
                 .applicationModule(new ApplicationModule(this))
                 .build();
         component.inject(this);
+
+        if(BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        }
     }
 
     public ActivityInjector getActivityInjector() {
