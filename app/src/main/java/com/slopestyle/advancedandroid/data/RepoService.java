@@ -5,6 +5,6 @@ import retrofit2.http.GET;
 
 public interface RepoService {
 
-    @GET("search/repositories?q=language:java&order=desc%sort=stars")
+    @GET("search/repositories?q=language:java&order=desc&sort=stars")
     Single<TrendingReposResponse> getTrendingRepos();
 }
