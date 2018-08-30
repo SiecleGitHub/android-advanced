@@ -11,7 +11,7 @@ import org.threeten.bp.ZonedDateTime;
 public abstract class Repo {
     public abstract long id();
 
-    public abstract int name();
+    public abstract String name();
 
     public abstract String description();
 
