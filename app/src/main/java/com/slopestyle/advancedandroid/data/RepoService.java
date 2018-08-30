@@ -4,7 +4,7 @@ import io.reactivex.Single;
 import retrofit2.http.GET;
 
 public interface RepoService {
-
+    /* get request for repos */
     @GET("search/repositories?q=language:java&order=desc&sort=stars")
     Single<TrendingReposResponse> getTrendingRepos();
 }
