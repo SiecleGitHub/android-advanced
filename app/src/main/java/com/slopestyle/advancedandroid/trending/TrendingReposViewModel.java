@@ -1,14 +1,14 @@
 package com.slopestyle.advancedandroid.trending;
 
 import com.jakewharton.rxrelay2.BehaviorRelay;
-import com.slopestyle.advancedandroid.R;
-import com.slopestyle.advancedandroid.di.ScreenScope;
-import com.slopestyle.advancedandroid.model.Repo;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
+import com.slopestyle.advancedandroid.R;
+import com.slopestyle.advancedandroid.di.ScreenScope;
+import com.slopestyle.advancedandroid.model.Repo;
 import io.reactivex.Observable;
 import io.reactivex.functions.Consumer;
 import timber.log.Timber;
@@ -25,6 +25,10 @@ class TrendingReposViewModel {
 
     }
 
+    Observable<Boolean> loading() {
+        return loadingRelay;
+    }
+
     Observable<List<Repo>> repos() {
         return reposRelay;
     }
@@ -33,7 +37,7 @@ class TrendingReposViewModel {
         return errorRelay;
     }
 
-    Observable<Boolean> loading() {
+    Consumer<Boolean> loadingUpdated() {
         return loadingRelay;
     }
 
@@ -47,9 +51,5 @@ class TrendingReposViewModel {
             Timber.e(throwable, "Error loading Repos");
             errorRelay.accept(R.string.api_error_repos);
         };
-    }
-
-    Consumer<Boolean> loadingUpdated() {
-        return loadingRelay;
     }
 }

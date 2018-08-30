@@ -2,14 +2,15 @@ package com.slopestyle.advancedandroid.trending;
 
 import com.slopestyle.advancedandroid.data.RepoRequester;
 import com.slopestyle.advancedandroid.di.ScreenScope;
+import com.slopestyle.advancedandroid.model.Repo;
 
 import javax.inject.Inject;
 
 @ScreenScope
-public class TrendingReposPresenter {
+class TrendingReposPresenter implements RepoAdapter.RepoClickedListener {
 
-    private TrendingReposViewModel viewModel;
-    private RepoRequester repoRequester;
+    private final TrendingReposViewModel viewModel;
+    private final RepoRequester repoRequester;
 
     @Inject
     TrendingReposPresenter(TrendingReposViewModel viewModel, RepoRequester repoRequester) {
@@ -20,8 +21,13 @@ public class TrendingReposPresenter {
 
     private void loadRepos() {
         repoRequester.getTrendingRepos()
-                .doOnSubscribe(r -> viewModel.loadingUpdated().accept(true))
+                .doOnSubscribe(__ -> viewModel.loadingUpdated().accept(true))
                 .doOnEvent((d, t) -> viewModel.loadingUpdated().accept(false))
                 .subscribe(viewModel.reposUpdated(), viewModel.onError());
+    }
+
+    @Override
+    public void onRepoClicked(Repo repo) {
+
     }
 }
