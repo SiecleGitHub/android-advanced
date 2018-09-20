@@ -2,6 +2,7 @@ package com.slopestyle.advancedandroid.base;
 
 import com.slopestyle.advancedandroid.data.TestRepoServiceModule;
 import com.slopestyle.advancedandroid.networking.ServiceModule;
+import com.slopestyle.advancedandroid.trending.TrendingReposControllerTest;
 import com.slopestyle.advancedandroid.ui.NavigationModule;
 
 import javax.inject.Singleton;
@@ -17,4 +18,5 @@ import dagger.Component;
         NavigationModule.class,
 })
 public interface TestApplicationComponent extends ApplicationComponent {
+    void inject(TrendingReposControllerTest trendingReposControllerTest);
 }

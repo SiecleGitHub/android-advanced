@@ -14,7 +14,6 @@ public class TestUtils {
 
     @Inject
     TestUtils(Moshi moshi) {
-
         this.moshi = moshi;
     }
 
