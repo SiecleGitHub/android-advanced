@@ -1,5 +1,6 @@
 package com.slopestyle.advancedandroid.data;
 
+import com.slopestyle.advancedandroid.model.Repo;
 import com.slopestyle.advancedandroid.test.TestUtils;
 
 import java.io.IOException;
@@ -32,6 +33,10 @@ public class TestRepoService implements RepoService {
         return Single.error(new IOException());
     }
 
+    @Override
+    public Single<Repo> getRepo(String repoOwner, String repoName) {
+        return null;
+    }
 
     public void setSendError(boolean sendError) {
         this.sendError = sendError;
