@@ -25,7 +25,7 @@ abstract class RepoDetailState {
     abstract Integer errorRes();
 
     static Builder builder() {
-        return new AutoValue_RepoDetailsState.Builder();
+        return new AutoValue_RepoDetailState.Builder();
     }
 
     @AutoValue.Builder
