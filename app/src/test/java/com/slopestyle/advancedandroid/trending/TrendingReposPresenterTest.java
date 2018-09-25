@@ -5,6 +5,7 @@ import com.slopestyle.advancedandroid.data.RepoRequester;
 import com.slopestyle.advancedandroid.data.TrendingReposResponse;
 import com.slopestyle.advancedandroid.model.Repo;
 import com.slopestyle.advancedandroid.testutils.TestUtils;
+import com.slopestyle.advancedandroid.ui.ScreenNavigator;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,6 +32,7 @@ public class TrendingReposPresenterTest {
     @Mock Consumer<Throwable> onErrorConsumer;
     @Mock Consumer<List<Repo>> onSuccessConsumer;
     @Mock Consumer<Boolean> loadingConsumer;
+    @Mock ScreenNavigator screenNavigator;
 
     private TrendingReposPresenter presenter;
 
@@ -85,7 +87,12 @@ public class TrendingReposPresenterTest {
 
     @Test
     public void onRepoClicked() {
-        // ToDo
+        Repo repo = TestUtils.loadJson("mock/get_repo.json", Repo.class);
+        setUpSuccess();
+        initializePresenter();
+        presenter.onRepoClicked(repo);
+
+        verify(screenNavigator).goToRepoDetails(repo.owner().login(), repo.name());
     }
 
     private List<Repo> setUpSuccess() {
@@ -104,5 +111,5 @@ public class TrendingReposPresenterTest {
     }
 
     private void initializePresenter() {
-        presenter = new TrendingReposPresenter(viewModel, repoRepository);
+        presenter = new TrendingReposPresenter(viewModel, repoRepository, screenNavigator);
     }}
