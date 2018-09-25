@@ -14,6 +14,7 @@ import java.util.List;
 import javax.inject.Provider;
 
 import io.reactivex.Single;
+import io.reactivex.schedulers.Schedulers;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -39,7 +40,7 @@ public class RepoRepositoryTest {
         rxJavaRepo = trendingReposeResponse.repos().get(0);
         otherRepo = trendingReposeResponse.repos().get(1);
 
-        repository = new RepoRepository(repoRequesterProvider);
+        repository = new RepoRepository(repoRequesterProvider, Schedulers.trampoline());
     }
 
     @Test
