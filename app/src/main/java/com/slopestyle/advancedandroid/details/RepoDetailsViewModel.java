@@ -17,7 +17,8 @@ import io.reactivex.functions.Consumer;
 import timber.log.Timber;
 
 @ScreenScope
-public class RepoDetailsViewModel {
+class RepoDetailsViewModel {
+
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("MMM dd, yyyy");
 
     private final BehaviorRelay<RepoDetailState> detailStateRelay = BehaviorRelay.create();
@@ -79,5 +80,4 @@ public class RepoDetailsViewModel {
                             .build());
         };
     }
-
 }

@@ -6,6 +6,8 @@ import com.slopestyle.advancedandroid.di.ScreenScope;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import timber.log.Timber;
+
 @ScreenScope
 public class RepoDetailsPresenter {
 
@@ -22,6 +24,7 @@ public class RepoDetailsPresenter {
                 .doOnError(viewModel.contributorsError()))
                 .subscribe(viewModel.processContributors(), throwable -> {
                     // We handle logging in the view model
+                    Timber.e(throwable, "Error loading repo");
                 });
     }
 }
