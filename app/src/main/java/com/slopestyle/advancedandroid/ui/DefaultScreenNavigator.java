@@ -5,12 +5,10 @@ import com.bluelinelabs.conductor.Router;
 import com.bluelinelabs.conductor.RouterTransaction;
 import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
 import com.slopestyle.advancedandroid.details.RepoDetailsController;
-import com.slopestyle.advancedandroid.di.ActivityScope;
 
 import javax.inject.Inject;
 
-@ActivityScope
-public class DefaultScreenNavigator implements ScreenNavigator{
+public class DefaultScreenNavigator implements ScreenNavigator {
 
     private Router router;
 
