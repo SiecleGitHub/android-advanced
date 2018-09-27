@@ -32,8 +32,8 @@ public class RepoDetailsPresenterTest {
     @Mock Consumer<Throwable> detailsErrorConsumer;
     @Mock Consumer<Throwable> contributorsErrorConsumer;
 
-    private Repo repo = TestUtils.loadJson("mock/get_repo.json", Repo.class);
-    private List<Contributor> contributors = TestUtils.loadJson("mock/get_contributors.json",
+    private Repo repo = TestUtils.loadJson("mock/repos/get_repo.json", Repo.class);
+    private List<Contributor> contributors = TestUtils.loadJson("mock/repos/contributors/get_contributors.json",
             Types.newParameterizedType(List.class, Contributor.class));
     private String contributorsUrl = repo.contributorsUrl();
 

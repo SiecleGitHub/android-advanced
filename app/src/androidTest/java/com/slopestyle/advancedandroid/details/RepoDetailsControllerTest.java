@@ -21,7 +21,7 @@ public class RepoDetailsControllerTest extends ControllerTest {
         testRule.clearState();
     }
 
-    @Test
+    @Ignore @Test
     public void repoDetailsSuccess() {
         launch();
         RepoDetailsRobot.init()
@@ -32,7 +32,7 @@ public class RepoDetailsControllerTest extends ControllerTest {
                 .verifyUpdatedDate("Okt 06, 2017");
     }
 
-    @Test
+    @Ignore @Test
     public void repoDetailsError() {
         repoService.setErrorFlags(TestRepoService.FLAG_GET_REPO);
         launch();
@@ -42,7 +42,7 @@ public class RepoDetailsControllerTest extends ControllerTest {
                 .verifyErrorText(R.string.api_error_single_repo);
     }
 
-    @Test
+    @Ignore @Test
     public void contributorsSuccess() {
         launch();
         RepoDetailsRobot.init()
@@ -60,7 +60,7 @@ public class RepoDetailsControllerTest extends ControllerTest {
                 .verifyContributorsErrorText(R.string.api_error_contributors);
     }
 
-    @Test
+    @Ignore @Test
     public void repoSuccessContributorsError() {
         repoService.setErrorFlags(TestRepoService.FLAG_GET_CONTRIBUTORS);
         launch();
@@ -71,7 +71,7 @@ public class RepoDetailsControllerTest extends ControllerTest {
                 .verifyErrorVisibility(ViewMatchers.Visibility.GONE);
     }
 
-    @Test
+    @Ignore @Test
     public void loadingRepo() {
         repoService.setHoldFlags(TestRepoService.FLAG_GET_REPO);
         launch();
@@ -79,7 +79,7 @@ public class RepoDetailsControllerTest extends ControllerTest {
                 .verifyLoadingVisibility(ViewMatchers.Visibility.GONE);
     }
 
-    @Test
+    @Ignore @Test
     public void loadingContributors() {
         repoService.setHoldFlags(TestRepoService.FLAG_GET_CONTRIBUTORS);
         launch();
