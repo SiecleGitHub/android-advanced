@@ -5,6 +5,7 @@ import com.slopestyle.advancedandroid.data.TestRepoService;
 import com.slopestyle.advancedandroid.data.TestRepoServiceModule;
 import com.slopestyle.advancedandroid.networking.ServiceModule;
 import com.slopestyle.advancedandroid.trending.TrendingReposControllerTest;
+import com.slopestyle.advancedandroid.ui.TestActivityViewInterceptorModule;
 import com.slopestyle.advancedandroid.ui.TestNavigationModule;
 import com.slopestyle.advancedandroid.ui.TestScreenNavigator;
 
@@ -19,6 +20,7 @@ import dagger.Component;
         TestRepoServiceModule.class,
         ServiceModule.class,
         TestNavigationModule.class,
+        TestActivityViewInterceptorModule.class,
 })
 public interface TestApplicationComponent extends ApplicationComponent {
     void inject(TrendingReposControllerTest trendingReposControllerTest);

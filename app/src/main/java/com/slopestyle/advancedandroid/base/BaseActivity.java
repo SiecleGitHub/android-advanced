@@ -14,6 +14,7 @@ import com.bluelinelabs.conductor.Router;
 import com.slopestyle.advancedandroid.R;
 import com.slopestyle.advancedandroid.di.Injector;
 import com.slopestyle.advancedandroid.di.ScreenInjector;
+import com.slopestyle.advancedandroid.ui.ActivityViewInterceptor;
 import com.slopestyle.advancedandroid.ui.ScreenNavigator;
 
 import java.util.UUID;
@@ -25,6 +26,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private static String INSTANCE_ID_KEY = "instance_id";
     @Inject ScreenInjector screenInjector;
     @Inject ScreenNavigator screenNavigator;
+    @Inject ActivityViewInterceptor activityViewInterceptor;
 
     private String instanceId;
     private Router router;
@@ -37,8 +39,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             instanceId = UUID.randomUUID().toString();
         }
         Injector.inject(this);
-        setContentView(layoutRes());
 
+        activityViewInterceptor.setContentView(this, layoutRes());
         ViewGroup screenContainer = findViewById(R.id.screen_container);
         if(screenContainer == null) {
             throw new NullPointerException("Activity must have a view with id: screen_container");
@@ -78,6 +80,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if(isFinishing()) {
             Injector.clearComponent(this);
         }
+        activityViewInterceptor.clear();
     }
 
     public ScreenInjector getScreenInjector() {
