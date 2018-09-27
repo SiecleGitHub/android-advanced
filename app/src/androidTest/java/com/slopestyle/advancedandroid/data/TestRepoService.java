@@ -1,8 +1,12 @@
 package com.slopestyle.advancedandroid.data;
 
+import android.os.Handler;
+import android.os.Looper;
+
 import com.slopestyle.advancedandroid.model.Contributor;
 import com.slopestyle.advancedandroid.model.Repo;
 import com.slopestyle.advancedandroid.test.TestUtils;
+import com.squareup.moshi.Types;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,8 +19,13 @@ import io.reactivex.Single;
 @Singleton
 public class TestRepoService implements RepoService {
 
+    public static final int FLAG_TRENDING_REPOS = 1;
+    public static final int FLAG_GET_REPO = 2;
+    public static final int FLAG_GET_CONTRIBUTORS = 4;
+
     private final TestUtils testUtils;
-    private boolean sendError;
+    private int errorFlags;
+    private int holdFlags;
 
     @Inject
     TestRepoService(TestUtils testUtils) {
@@ -25,27 +34,71 @@ public class TestRepoService implements RepoService {
 
     @Override
     public Single<TrendingReposResponse> getTrendingRepos() {
-        if(!sendError) {
-            TrendingReposResponse response = testUtils.loadJson(
-                    "mock/get_trending_repos.json",
-                    TrendingReposResponse.class);
+        if((errorFlags & FLAG_TRENDING_REPOS) == 0) {
+            TrendingReposResponse response = testUtils.loadJson("mock/get_trending_repos.json", TrendingReposResponse.class);
+            if((holdFlags & FLAG_TRENDING_REPOS) == FLAG_TRENDING_REPOS) {
+                return holdingSingle(response, FLAG_TRENDING_REPOS);
+            }
             return Single.just(response);
         }
-
         return Single.error(new IOException());
     }
 
     @Override
     public Single<Repo> getRepo(String repoOwner, String repoName) {
-        return null;
+        if((errorFlags & FLAG_GET_REPO) == FLAG_GET_REPO) {
+            Repo response = testUtils.loadJson("mock/get_repo.json", Repo.class);
+            if((holdFlags & FLAG_GET_REPO) == FLAG_GET_REPO) {
+                return holdingSingle(response, FLAG_GET_REPO);
+            }
+            return Single.just(response);
+        }
+        return Single.error(new IOException());
     }
 
     @Override
     public Single<List<Contributor>> getContributors(String url) {
-        return null;
+        if((errorFlags & FLAG_GET_CONTRIBUTORS) == FLAG_GET_CONTRIBUTORS) {
+            List<Contributor> response = testUtils.loadJson("mock/get_contributors.json",
+                    Types.newParameterizedType(List.class, Contributor.class));
+            if((holdFlags & FLAG_GET_CONTRIBUTORS) == FLAG_GET_CONTRIBUTORS) {
+                return holdingSingle(response, FLAG_GET_CONTRIBUTORS);
+            }
+            return Single.just(response);
+        }
+        return Single.error(new IOException());
     }
 
-    public void setSendError(boolean sendError) {
-        this.sendError = sendError;
+    public void setErrorFlags(int errorFlags) {
+        this.errorFlags = errorFlags;
+    }
+
+    public void clearErrorFlags() {
+        this.errorFlags = 0;
+    }
+
+    public void setHoldFlags(int holdFlags) {
+        this.holdFlags = holdFlags;
+    }
+
+    public void clearHoldFlags() {
+        this.holdFlags = 0;
+    }
+
+    private <T> Single<T> holdingSingle(T result, int flag) {
+        return Single.create(e -> {
+            final Handler handler = new Handler(Looper.getMainLooper());
+            Runnable holdRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    if((holdFlags & flag) == flag) {
+                        handler.postDelayed(this, 50);
+                    } else {
+                        e.onSuccess(result);
+                    }
+                }
+            };
+            holdRunnable.run();
+        });
     }
 }

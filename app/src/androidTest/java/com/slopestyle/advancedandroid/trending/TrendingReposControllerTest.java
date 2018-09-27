@@ -1,22 +1,15 @@
 package com.slopestyle.advancedandroid.trending;
 
 import android.support.test.espresso.matcher.ViewMatchers;
-import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.bluelinelabs.conductor.Controller;
 import com.slopestyle.advancedandroid.R;
-import com.slopestyle.advancedandroid.base.TestApplication;
 import com.slopestyle.advancedandroid.data.TestRepoService;
-import com.slopestyle.advancedandroid.home.MainActivity;
 import com.slopestyle.advancedandroid.test.ControllerTest;
 
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import javax.inject.Inject;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -31,7 +24,7 @@ public class TrendingReposControllerTest extends ControllerTest {
 
     @Test
     public void loadRepos() {
-        repoService.setSendError(false);
+        repoService.clearErrorFlags();
         launch();
 
         onView(withId(R.id.loading_indicator)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
@@ -43,7 +36,7 @@ public class TrendingReposControllerTest extends ControllerTest {
 
     @Test
     public void loadErrors() {
-        repoService.setSendError(true);
+        repoService.setErrorFlags(TestRepoService.FLAG_TRENDING_REPOS);
         launch();
 
         onView(withId(R.id.loading_indicator)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)));
