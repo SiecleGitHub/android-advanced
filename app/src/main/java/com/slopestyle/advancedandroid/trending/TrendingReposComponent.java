@@ -1,12 +1,15 @@
 package com.slopestyle.advancedandroid.trending;
 
 import com.slopestyle.advancedandroid.di.ScreenScope;
+import com.slopestyle.advancedandroid.networking.ServiceModule;
 
 import dagger.Subcomponent;
 import dagger.android.AndroidInjector;
 
 @ScreenScope
-@Subcomponent
+@Subcomponent(modules = {
+        ServiceModule.class,
+})
 public interface TrendingReposComponent extends AndroidInjector<TrendingReposController> {
 
     @Subcomponent.Builder

@@ -1,6 +1,7 @@
 package com.slopestyle.advancedandroid.details;
 
 import com.slopestyle.advancedandroid.di.ScreenScope;
+import com.slopestyle.advancedandroid.networking.ServiceModule;
 
 import javax.inject.Named;
 
@@ -9,7 +10,9 @@ import dagger.Subcomponent;
 import dagger.android.AndroidInjector;
 
 @ScreenScope
-@Subcomponent
+@Subcomponent(modules = {
+        ServiceModule.class,
+})
 public interface RepoDetailsComponent extends AndroidInjector<RepoDetailsController> {
 
     @Subcomponent.Builder
