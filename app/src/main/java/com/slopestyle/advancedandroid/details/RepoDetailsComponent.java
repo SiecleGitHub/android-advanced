@@ -1,5 +1,6 @@
 package com.slopestyle.advancedandroid.details;
 
+import com.slopestyle.advancedandroid.base.ScreenModule;
 import com.slopestyle.advancedandroid.di.ScreenScope;
 import com.slopestyle.advancedandroid.networking.ServiceModule;
 
@@ -11,7 +12,8 @@ import dagger.android.AndroidInjector;
 
 @ScreenScope
 @Subcomponent(modules = {
-        ServiceModule.class,
+        ScreenModule.class,
+        RepoDetailsScreenModule.class,
 })
 public interface RepoDetailsComponent extends AndroidInjector<RepoDetailsController> {
 
