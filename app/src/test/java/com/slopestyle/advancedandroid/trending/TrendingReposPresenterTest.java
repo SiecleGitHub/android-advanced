@@ -3,6 +3,7 @@ package com.slopestyle.advancedandroid.trending;
 import com.slopestyle.advancedandroid.data.RepoRepository;
 import com.slopestyle.advancedandroid.data.RepoRequester;
 import com.slopestyle.advancedandroid.data.TrendingReposResponse;
+import com.slopestyle.advancedandroid.lifecycle.DisposableManager;
 import com.slopestyle.advancedandroid.model.Repo;
 import com.slopestyle.advancedandroid.testutils.TestUtils;
 import com.slopestyle.advancedandroid.ui.ScreenNavigator;
@@ -111,5 +112,5 @@ public class TrendingReposPresenterTest {
     }
 
     private void initializePresenter() {
-        presenter = new TrendingReposPresenter(viewModel, repoRepository, screenNavigator);
+        presenter = new TrendingReposPresenter(viewModel, repoRepository, screenNavigator, Mockito.mock(DisposableManager.class));
     }}
