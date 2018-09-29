@@ -10,6 +10,9 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import com.slopestyle.advancedandroid.R;
 import com.slopestyle.advancedandroid.base.BaseController;
+import com.slopestyle.poweradapter.adapter.RecyclerAdapter;
+import com.slopestyle.poweradapter.adapter.RecyclerDataSource;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 
@@ -17,6 +20,7 @@ public class TrendingReposController extends BaseController {
 
     @Inject TrendingReposPresenter presenter;
     @Inject TrendingReposViewModel viewModel;
+    @Inject RecyclerDataSource dataSource;
 
     @BindView(R.id.repo_list) RecyclerView repoList;
     @BindView(R.id.loading_indicator) View loadingView;
@@ -25,7 +29,7 @@ public class TrendingReposController extends BaseController {
     @Override
     protected void onViewBound(View view) {
         repoList.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        repoList.setAdapter(new RepoAdapter(presenter));
+        repoList.setAdapter(new RecyclerAdapter(dataSource));
     }
 
     @Override
@@ -38,9 +42,6 @@ public class TrendingReposController extends BaseController {
                     repoList.setVisibility(loading ? View.GONE : View.VISIBLE);
                     errorText.setVisibility(loading ? View.GONE : errorText.getVisibility());
                 }),
-                viewModel.repos()
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(((RepoAdapter)repoList.getAdapter())::setData),
                 viewModel.error()
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(errorRes -> {
