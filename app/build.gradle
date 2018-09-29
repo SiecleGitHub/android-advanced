@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
     defaultConfig {
         applicationId "com.slopestyle.advancedandroid"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -22,6 +23,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
+
 
 dependencies {
     implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
