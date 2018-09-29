@@ -31,16 +31,6 @@ public class TrendingReposViewModelTest {
     }
 
     @Test
-    public void repos() throws Exception {
-        TrendingReposResponse response = TestUtils.loadJson("mock/search/get_trending_repos.json", TrendingReposResponse.class);
-        viewModel.reposUpdated().accept(response.repos());
-
-        // in one line: get our observable converted it to a test observer
-        // and assert that what we expect was emitted
-        viewModel.repos().test().assertValue(response.repos());
-    }
-
-    @Test
     public void error() throws Exception {
         // for error. We need a new test observer
         // and first we will emit a new exception to our on air handler.
@@ -50,7 +40,7 @@ public class TrendingReposViewModelTest {
         // one after that.
         TestObserver<Integer> errorObserver = viewModel.error().test();
         viewModel.onError().accept(new IOException());
-        viewModel.reposUpdated().accept(Collections.emptyList());
+        viewModel.reposUpdated().run();
 
         errorObserver.assertValues(R.string.api_error_repos, -1);
     }
