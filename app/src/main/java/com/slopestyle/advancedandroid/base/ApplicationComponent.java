@@ -1,6 +1,7 @@
 package com.slopestyle.advancedandroid.base;
 
 import com.slopestyle.advancedandroid.data.RepoServiceModule;
+import com.slopestyle.advancedandroid.database.DatabaseModule;
 import com.slopestyle.advancedandroid.networking.ServiceModule;
 
 import javax.inject.Singleton;
@@ -14,6 +15,7 @@ import dagger.Component;
         ServiceModule.class,
         RepoServiceModule.class,
         ScreenModule.class,
+        DatabaseModule.class,
 })
 public interface ApplicationComponent {
     void inject(MyApplication myApplication);
