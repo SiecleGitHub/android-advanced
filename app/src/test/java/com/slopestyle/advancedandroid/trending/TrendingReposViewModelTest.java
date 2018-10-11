@@ -1,14 +1,11 @@
 package com.slopestyle.advancedandroid.trending;
 
 import com.slopestyle.advancedandroid.R;
-import com.slopestyle.advancedandroid.data.TrendingReposResponse;
-import com.slopestyle.advancedandroid.testutils.TestUtils;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.Collections;
 
 import io.reactivex.observers.TestObserver;
 
@@ -17,7 +14,7 @@ public class TrendingReposViewModelTest {
     private TrendingReposViewModel viewModel;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         viewModel = new TrendingReposViewModel();
     }
 

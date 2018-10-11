@@ -1,7 +1,6 @@
 package com.slopestyle.advancedandroid.trending;
 
 import com.slopestyle.advancedandroid.data.RepoRepository;
-import com.slopestyle.advancedandroid.data.RepoRequester;
 import com.slopestyle.advancedandroid.data.TrendingReposResponse;
 import com.slopestyle.advancedandroid.lifecycle.DisposableManager;
 import com.slopestyle.advancedandroid.model.Repo;
@@ -34,18 +33,18 @@ public class TrendingReposPresenterTest {
         RxAndroidPlugins.setInitMainThreadSchedulerHandler(schedulerCallable -> Schedulers.trampoline());
     }
 
-    @Mock RepoRepository repoRepository;
-    @Mock TrendingReposViewModel viewModel;
-    @Mock Consumer<Throwable> onErrorConsumer;
-    @Mock Consumer<Boolean> loadingConsumer;
-    @Mock ScreenNavigator screenNavigator;
-    @Mock RecyclerDataSource dataSource;
+    @Mock private RepoRepository repoRepository;
+    @Mock private TrendingReposViewModel viewModel;
+    @Mock private Consumer<Throwable> onErrorConsumer;
+    @Mock private Consumer<Boolean> loadingConsumer;
+    @Mock private ScreenNavigator screenNavigator;
+    @Mock private RecyclerDataSource dataSource;
 
     private TrendingReposPresenter presenter;
 
     @Before
 
-    public void setUp() throws Exception {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
         when(viewModel.loadingUpdated()).thenReturn(loadingConsumer);
         when(viewModel.onError()).thenReturn(onErrorConsumer);
@@ -53,7 +52,7 @@ public class TrendingReposPresenterTest {
     }
 
     @Test
-    public void reposLoaded() throws Exception {
+    public void reposLoaded() {
         List<Repo> repos = setUpSuccess();
         initializePresenter();
 
