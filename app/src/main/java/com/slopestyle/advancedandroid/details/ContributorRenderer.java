@@ -21,8 +21,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnLongClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 class ContributorRenderer implements ItemRenderer<Contributor> {
 
@@ -57,6 +57,7 @@ class ContributorRenderer implements ItemRenderer<Contributor> {
         @BindView(R.id.parent_view) View parentView;
 
         private final FavoriteService favoriteService;
+        private final CompositeDisposable compositeDisposable = new CompositeDisposable();
         private Disposable favoriteDisposable;
 
         private Contributor contributor;
@@ -64,7 +65,7 @@ class ContributorRenderer implements ItemRenderer<Contributor> {
         ViewBinder(View itemView, FavoriteService favoriteService) {
             this.favoriteService = favoriteService;
             ButterKnife.bind(this, itemView);
-            RxView.attachEvents(parentView)
+            Disposable disposable = RxView.attachEvents(parentView)
                     .subscribe(event -> {
                         if (event.view().isAttachedToWindow()) {
                             listenForFavoriteChanges();
@@ -75,6 +76,7 @@ class ContributorRenderer implements ItemRenderer<Contributor> {
                             }
                         }
                     });
+            compositeDisposable.add(disposable);
         }
 
         @OnLongClick(R.id.parent_view)
@@ -101,6 +103,5 @@ class ContributorRenderer implements ItemRenderer<Contributor> {
                     .load(contributor.avatarUrl())
                     .into(avatarImageView);
         }
-
     }
 }
